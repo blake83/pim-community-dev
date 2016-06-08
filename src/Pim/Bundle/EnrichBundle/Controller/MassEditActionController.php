@@ -2,7 +2,6 @@
 
 namespace Pim\Bundle\EnrichBundle\Controller;
 
-use Akeneo\Bundle\BatchBundle\Connector\ConnectorRegistry;
 use Akeneo\Bundle\BatchBundle\Launcher\JobLauncherInterface;
 use Akeneo\Component\Batch\Job\JobRepositoryInterface;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -62,9 +61,6 @@ class MassEditActionController
     /** @var JobRepositoryInterface */
     protected $jobRepository;
 
-    /** @var ConnectorRegistry */
-    protected $connectorRegistry;
-
     /** @var MassEditFormResolver */
     protected $massEditFormResolver;
 
@@ -84,7 +80,6 @@ class MassEditActionController
      * @param GridFilterAdapterInterface $gridFilterAdapter
      * @param JobLauncherInterface       $simpleJobLauncher
      * @param JobRepositoryInterface     $jobRepository
-     * @param ConnectorRegistry          $connectorRegistry
      * @param OperationRegistryInterface $operationRegistry
      * @param MassEditFormResolver       $massEditFormResolver
      * @param array                      $gridNameRouteMapping
@@ -99,7 +94,6 @@ class MassEditActionController
         GridFilterAdapterInterface $gridFilterAdapter,
         JobLauncherInterface $simpleJobLauncher,
         JobRepositoryInterface $jobRepository,
-        ConnectorRegistry $connectorRegistry,
         OperationRegistryInterface $operationRegistry,
         MassEditFormResolver $massEditFormResolver,
         array $gridNameRouteMapping = [
@@ -116,7 +110,6 @@ class MassEditActionController
         $this->gridFilterAdapter    = $gridFilterAdapter;
         $this->simpleJobLauncher    = $simpleJobLauncher;
         $this->jobRepository        = $jobRepository;
-        $this->connectorRegistry    = $connectorRegistry;
         $this->operationRegistry    = $operationRegistry;
         $this->massEditFormResolver = $massEditFormResolver;
         $this->gridNameRouteMapping = $gridNameRouteMapping;
