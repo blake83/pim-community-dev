@@ -243,3 +243,10 @@ services:
           arguments:
               - '@pim_serializer.normalizer.flat.association_type'
               - 'flat'
+
+    pim_connector.processor.normalization.product:
+           class: 'Pim\Component\Connector\Processor\Normalization\ProductProcessor'
+           arguments:
+                - '@pim_catalog.repository.cached_attribute'
+                - '@akeneo_file_storage.repository.file_info'
+                - ['pim_catalog_file', 'pim_catalog_image']
