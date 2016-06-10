@@ -345,3 +345,5 @@
 - Add parameter `$operationGroup` to `Pim\Bundle\EnrichBundle\MassEditAction\MassEditFormResolver::getAvailableOperationsForm()`
 - Add parameter `$operationGroup` to `Pim\Bundle\EnrichBundle\MassEditAction\Operation\OperationRegistryInterface::register()`
 - Replace method `getAllByGridName()` by `getAllByGridNameAndGroup()` in `Pim\Bundle\EnrichBundle\MassEditAction\Operation\OperationRegistryInterface`
+- Change constructor of `Akeneo\Component\Batch\Job\Job` to add the array $steps argument
+- Remove the methods setSteps, addStep from `Akeneo\Component\Batch\Job\Job`
