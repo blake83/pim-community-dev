@@ -347,3 +347,4 @@
 - Replace method `getAllByGridName()` by `getAllByGridNameAndGroup()` in `Pim\Bundle\EnrichBundle\MassEditAction\Operation\OperationRegistryInterface`
 - Change constructor of `Akeneo\Component\Batch\Job\Job` to add the array $steps argument
 - Remove the methods setSteps, addStep from `Akeneo\Component\Batch\Job\Job`
+- Remove the class `Akeneo\Component\Batch\Connector\ConnectorRegistry`, please use `Akeneo\Component\Batch\Job\JobRegistry`
