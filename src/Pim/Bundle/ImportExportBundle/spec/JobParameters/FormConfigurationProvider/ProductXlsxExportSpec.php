@@ -144,6 +144,7 @@ class ProductXlsxExportSpec extends ObjectBehavior
                     'attr'         => ['data-tab' => 'content']
                 ]
             ],
+            'categories' => ['type' => 'pim_import_export_product_export_categories'],
             'decimalSeparator' => [
                 'type'    => 'choice',
                 'options' => [

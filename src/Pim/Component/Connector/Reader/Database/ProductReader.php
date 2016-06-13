@@ -91,12 +91,15 @@ class ProductReader extends AbstractConfigurableStepElement implements ItemReade
         $parameters = $this->stepExecution->getJobParameters();
 
         $pqb     = $this->pqbFactory->create(['default_scope' => $channel->getCode()]);
-        $filters = array_merge($this->getFilters(
-            $channel,
-            $this->rawToStandardProductStatus($parameters->get('enabled')),
-            $this->rawToStandardProductUpdated($parameters),
-            array_filter(explode(',', $parameters->get('families')))
-        ), $this->getCompletenessFilters($parameters));
+        $filters = array_merge(
+            $this->getFilters(
+                $this->rawToStandardProductStatus($parameters->get('enabled')),
+                $this->rawToStandardProductUpdated($parameters),
+                array_filter(explode(',', $parameters->get('families')))
+            ),
+            $this->getCompletenessFilters($parameters),
+            $this->getCategoryFilters($parameters)
+        );
 
         foreach ($filters as $filter) {
             $pqb->addFilter(
@@ -164,23 +167,15 @@ class ProductReader extends AbstractConfigurableStepElement implements ItemReade
     /**
      * Return the filters to be applied on the PQB instance.
      *
-     * @param ChannelInterface $channel
      * @param bool             $status
      * @param string           $updated
      * @param array            $families
      *
      * @return array
      */
-    protected function getFilters(ChannelInterface $channel, $status, $updated, $families)
+    protected function getFilters($status, $updated, $families)
     {
-        $filters = [
-            [
-                'field'    => 'categories.id',
-                'operator' => Operators::IN_CHILDREN_LIST,
-                'value'    => [$channel->getCategory()->getId()],
-                'context'  => []
-            ]
-        ];
+        $filters = [];
 
         if (null !== $status) {
             $filters[] = [
@@ -270,7 +265,7 @@ class ProductReader extends AbstractConfigurableStepElement implements ItemReade
      *
      * @param JobParameters $parameters
      *
-     * @return array|null
+     * @return array
      */
     protected function getCompletenessFilters(JobParameters $parameters)
     {
@@ -312,5 +307,39 @@ class ProductReader extends AbstractConfigurableStepElement implements ItemReade
         }
 
         return [];
+    }
+
+    /**
+     * Transform category fields into PQB filters
+     *
+     * @param JobParameters $parameters
+     *
+     * @return array
+     */
+    protected function getCategoryFilters(JobParameters $parameters)
+    {
+        $included     = $parameters->get('categories_included');
+        $excluded     = $parameters->get('categories_excluded');
+        $filters = [];
+
+        if (!empty($included)) {
+            $filters[] = [
+                'field'    => 'categories.id',
+                'operator' => Operators::IN_CHILDREN_LIST,
+                'value'    => $included,
+                'context'  => []
+            ];
+        }
+
+        if (!empty($excluded)) {
+            $filters[] = [
+                'field'    => 'categories.id',
+                'operator' => Operators::NOT_IN_LIST,
+                'value'    => $excluded,
+                'context'  => []
+            ];
+        }
+
+        return $filters;
     }
 }

@@ -71,6 +71,9 @@ pim_connector:
                 all_complete: Complete on all selected locales
                 all_incomplete: Not complete on all selected locales
                 all: No condition on completeness
+        categories:
+            label: Categories
+            help: The categories of the products you want to export
         updated:
             updated_since_strategy:
                 label: Updated time condition
