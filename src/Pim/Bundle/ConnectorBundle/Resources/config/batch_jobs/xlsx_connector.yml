@@ -34,30 +34,6 @@ connector:
                         writer:    pim_connector.writer.database.category
                     parameters:
                         batchSize: 1
-        xlsx_attribute_import:
-            type:  import
-            steps:
-                validation:
-                    class: '%pim_connector.step.validator.class%'
-                    services:
-                        charsetValidator: pim_connector.validator.item.charset_validator
-                import:
-                    services:
-                        reader:    pim_connector.reader.file.xlsx_attribute
-                        processor: pim_connector.processor.denormalization.attribute
-                        writer:    pim_connector.writer.database.attribute
-        xlsx_attribute_option_import:
-            type:  import
-            steps:
-                validation:
-                    class: '%pim_connector.step.validator.class%'
-                    services:
-                        charsetValidator: pim_connector.validator.item.charset_validator
-                import:
-                    services:
-                        reader:    pim_connector.reader.file.xlsx_attribute_option
-                        processor: pim_connector.processor.denormalization.attribute_option
-                        writer:    pim_connector.writer.database.attribute_option
         xlsx_association_type_import:
             type: import
             steps:
@@ -156,26 +132,6 @@ connector:
                         reader:    pim_base_connector.reader.orm.category
                         processor: pim_connector.processor.normalization.category
                         writer:    pim_connector.writer.file.xlsx_category
-                    parameters:
-                        batch_size: 10
-        xlsx_attribute_export:
-            type:  export
-            steps:
-                export:
-                    services:
-                        reader:    pim_base_connector.reader.orm.attribute
-                        processor: pim_connector.processor.normalization.attribute
-                        writer:    pim_connector.writer.file.xlsx_attribute
-                    parameters:
-                        batch_size: 10
-        xlsx_attribute_option_export:
-            type:  export
-            steps:
-                export:
-                    services:
-                        reader:    pim_base_connector.reader.orm.attribute_option
-                        processor: pim_connector.processor.normalization.attribute_option
-                        writer:    pim_connector.writer.file.xlsx_attribute_option
                     parameters:
                         batch_size: 10
         xlsx_association_type_export:
