@@ -3,6 +3,7 @@
 namespace Pim\Bundle\EnrichBundle\Controller;
 
 use Akeneo\Bundle\BatchBundle\Launcher\JobLauncherInterface;
+use Akeneo\Component\Batch\Job\JobRegistry;
 use Akeneo\Component\Batch\Job\JobRepositoryInterface;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Oro\Bundle\DataGridBundle\Extension\MassAction\MassActionParametersParser;
@@ -70,6 +71,9 @@ class MassEditActionController
     /** @var OperationRegistryInterface */
     protected $operationRegistry;
 
+    /** @var JobRegistry */
+    protected $jobRegistry;
+
     /**
      * @param Request                    $request
      * @param EngineInterface            $templating
@@ -80,6 +84,7 @@ class MassEditActionController
      * @param GridFilterAdapterInterface $gridFilterAdapter
      * @param JobLauncherInterface       $simpleJobLauncher
      * @param JobRepositoryInterface     $jobRepository
+     * @param JobRegistry                $jobRegistry
      * @param OperationRegistryInterface $operationRegistry
      * @param MassEditFormResolver       $massEditFormResolver
      * @param array                      $gridNameRouteMapping
@@ -94,6 +99,7 @@ class MassEditActionController
         GridFilterAdapterInterface $gridFilterAdapter,
         JobLauncherInterface $simpleJobLauncher,
         JobRepositoryInterface $jobRepository,
+        JobRegistry $jobRegistry,
         OperationRegistryInterface $operationRegistry,
         MassEditFormResolver $massEditFormResolver,
         array $gridNameRouteMapping = [
@@ -110,6 +116,7 @@ class MassEditActionController
         $this->gridFilterAdapter    = $gridFilterAdapter;
         $this->simpleJobLauncher    = $simpleJobLauncher;
         $this->jobRepository        = $jobRepository;
+        $this->jobRegistry          = $jobRegistry;
         $this->operationRegistry    = $operationRegistry;
         $this->massEditFormResolver = $massEditFormResolver;
         $this->gridNameRouteMapping = $gridNameRouteMapping;
